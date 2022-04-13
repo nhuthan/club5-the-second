@@ -8,24 +8,37 @@ export const todoSlice = createSlice({
     reducers: {
         addList: (state, action) => {
             state.lists.push({
-                name: action.payload.name,
+                name: action.payload.listName,
                 items: []
             })
         },
         addItem: (state, action) => {
             const list = state.lists.find(item => item.name == action.payload.listName);
-            if(list){
+            if (list) {
                 list.items.push({
                     title: action.payload.title,
+                    id: Date.now(),
                     isCompleted: false,
                     isImportant: false
                 })
+            }
+        },
+        removeList: (state, action) => {
+            const listName = action.payload.listName;
+            state.lists = state.lists.filter(item => item.name != listName);
+        },
+        removeItem: (state, action) => {
+            const listName = action.payload.listName;
+            const itemId = action.payload.itemId;
+            const list = state.lists.find(item => item.name == listName);
+            if (list) {
+                list.items = list.items.filter(item => item.id != itemId);
             }
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { addList, addItem } = todoSlice.actions
+export const { addList, addItem, removeList, removeItem } = todoSlice.actions
 
 export default todoSlice.reducer

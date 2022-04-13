@@ -1,15 +1,23 @@
-import CreateList from './create-list';
-import Lists from './lists'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import IpInfo from './ipInfo'
 
-const HomePage = props => {
+import { fetchIpInfo } from '../../actions/home';
+
+export default function Home() {
+    const [ip, setIp] = useState('118.70.52.28');
+    const dispatch = useDispatch()
+
+    const getInfo = (e) => {
+        dispatch(fetchIpInfo(ip))
+    }
 
     return (
         <div>
-            <Lists />
-            <CreateList />
-        </div >
+            <input type="text" onChange={e => setIp(e.target.value)} value={ip} />
+            <button onClick={getInfo}>Get Info</button>
 
+            <IpInfo />
+        </div>
     )
 }
-
-export default HomePage;

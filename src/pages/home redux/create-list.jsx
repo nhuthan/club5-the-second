@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {  useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addList } from '../../reducer/todo';
 
 const CreateList = props => {
@@ -11,7 +11,7 @@ const CreateList = props => {
             value={name}
             onKeyDown={e => {
                 if (e.key == 'Enter') {
-                    dispatch(addList({name: e.target.value}))
+                    dispatch(addList({ listName: e.target.value }))
                     setName('');
                 }
             }}
